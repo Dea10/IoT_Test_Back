@@ -4,10 +4,6 @@ const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 let deviceSchema = new Schema({
-    id: {
-        type: String,
-        required: [true, 'id required']
-    },
     type: {
         type: String,
         required: [true, 'type required']

@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
     next();
   });
 
-app.get('/device', function (req, res, next) {
+app.get('/device', function (req, res) {
 
     let from = req.query.from || 0;
     from = Number(from);
@@ -48,11 +48,10 @@ app.get('/device', function (req, res, next) {
         })
 })
 
-app.post('/device', function (req, res, next) {
+app.post('/device', function (req, res) {
     let body = req.body
 
     let device = new Device({
-        id: body.id,
         type: body.type,
         label: body.label
     });
@@ -72,25 +71,25 @@ app.post('/device', function (req, res, next) {
     });
 })
 
-// app.put('/user/:id', function (req, res) {
-//     let id = req.params.id;
-//     let body = _.pick(req.body, ['name', 'email', 'img', 'role', 'status']);
+app.put('/device/:id', function (req, res) {
+    let id = req.params.id;
+    let body = _.pick(req.body, ['type', 'label']);
 
-//     User.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, userDB) => {
+    Device.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, deviceDB) => {
 
-//         if (err) {
-//             res.status(400).json({
-//                 ok: false,
-//                 err
-//             });
-//         }
+        if (err) {
+            res.status(400).json({
+                ok: false,
+                err
+            });
+        }
 
-//         res.json({
-//             ok: true,
-//             user: userDB
-//         })
-//     });
-// })
+        res.json({
+            ok: true,
+            device: deviceDB
+        })
+    });
+})
 
 app.delete('/device/:id', function (req, res) {
     
