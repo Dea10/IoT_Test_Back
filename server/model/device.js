@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const { json } = require('express');
 
 const Schema = mongoose.Schema;
 
@@ -11,6 +12,14 @@ let deviceSchema = new Schema({
     label: {
         type: String,
         required: [true, 'label required']
+    },
+    manufacturer: {
+        type: String,
+        required: [true, 'manufacturer required']
+    },
+    state: {
+        type: Map,
+        of: String
     }
 });
 

@@ -1,7 +1,9 @@
 const express = require('express');
 const _ = require('underscore');
 const Device = require('../model/device');
+const bodyParser = require('body-parser');
 const app = express();
+const jsonParser = bodyParser.json;
 
 app.use(function(req, res, next) {
     // Website you wish to allow to connect
@@ -53,7 +55,9 @@ app.post('/device', function (req, res) {
 
     let device = new Device({
         type: body.type,
-        label: body.label
+        label: body.label,
+        manufacturer: body.manufacturer,
+        state: body.state
     });
 
     device.save((err, deviceDB) => {
